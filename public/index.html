@@ -3,61 +3,65 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Duc's CodeShare</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.15.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.15.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.15.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.15.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.15.1/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+
+    <!-- Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/ace.min.js" integrity="sha256-qCCcAHv/Z0u7K344shsZKUF2NR+59ooA3XWRj0LPGIQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/theme-tomorrow_night_eighties.min.js" integrity="sha256-Kq3aVoDYV3fiszUucwvQabgLpYDXKs9zPu8i4N6dH4M=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-c_cpp.min.js" integrity="sha256-I5GO6mGnGNU1W/8viy4CsR98MZoZ3cq96WmrJQIWqLs=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-python.min.js" integrity="sha256-dgu7+RV2rby44bxsuQuo2Rm+pG0JXtShrFWStI0DrC4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.11/mode-java.min.js" integrity="sha256-6dCbqTMWzuFDcVtfLWw44Uan2Ei/h5Y9iQnMUmo8sYU=" crossorigin="anonymous"></script>
+
+    <!-- Firepad -->
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.5.10/firepad.css" />
+    <script src="https://firepad.io/releases/v1.5.10/firepad.min.js"></script>
+
+    <!-- Initialize -->
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyABxtEMkTP6wloIl2w2xuwjbkym2rNg0nU",
+        authDomain: "duc-codeshare.firebaseapp.com",
+        databaseURL: "https://duc-codeshare.firebaseio.com",
+        projectId: "duc-codeshare",
+        storageBucket: "duc-codeshare.appspot.com",
+        messagingSenderId: "347484878411",
+        appId: "1:347484878411:web:7c5435d5b4a07f2280bfce"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+      #editor {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
       }
     </style>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <div id="editor"></div>
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        var params = new URLSearchParams(window.location.search);
+        var codeId = params.get('id');
+        if (codeId) {
+          var editor = ace.edit('editor');
+          editor.setTheme('ace/theme/tomorrow_night_eighties');
+          editor.setFontSize(16);
+          editor.session.setMode('ace/mode/python');
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+          var firepadRef = firebase.database().ref(`sessions/${codeId}`);
+          var firepad = Firepad.fromACE(firepadRef, editor, {});
         }
       });
     </script>
