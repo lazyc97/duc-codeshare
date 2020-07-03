@@ -50,15 +50,18 @@
   <body>
     <div id="editor"></div>
 
+    <div style="position:fixed; bottom:0; right:0;"></div>
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var params = new URLSearchParams(window.location.search);
         var codeId = params.get('id');
-        if (codeId) {
+        var lang = params.get('lang');
+        if (codeId && lang) {
           var editor = ace.edit('editor');
           editor.setTheme('ace/theme/tomorrow_night_eighties');
           editor.setFontSize(16);
-          editor.session.setMode('ace/mode/python');
+          editor.session.setMode(`ace/mode/${lang}`);
 
           var firepadRef = firebase.database().ref(`sessions/${codeId}`);
           var firepad = Firepad.fromACE(firepadRef, editor, {});
